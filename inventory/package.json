@@ -1,0 +1,30 @@
+{
+  "name": "inventory",
+  "version": "1.0.0",
+  "description": "Simple inventory system example with ES and CQRS",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ClementFelipe/es-cqrs-example.git"
+  },
+  "keywords": [
+    "event",
+    "sourcing",
+    "cqrs"
+  ],
+  "author": "Felipe Clement",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ClementFelipe/es-cqrs-example/issues"
+  },
+  "homepage": "https://github.com/ClementFelipe/es-cqrs-example#readme",
+  "dependencies": {
+    "@eventstore/db-client": "0.0.0-alpha.8",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "uuid": "^8.3.1"
+  }
+}

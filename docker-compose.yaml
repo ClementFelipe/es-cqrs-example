@@ -1,0 +1,47 @@
+version: "3.7"
+services:
+  postgres:
+    image: postgres:13.1
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+  pgadmin:
+    image: dpage/pgadmin4:4.17
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin
+      PGADMIN_DEFAULT_PASSWORD: admin
+    depends_on:
+      - postgres
+    ports:
+      - 8083:80
+    volumes:
+      - ./pgadmin4/servers.json:/pgadmin4/servers.json
+    logging:
+      driver: none
+  eventstore:
+    image: docker.pkg.github.com/eventstore/eventstore/eventstore:20.6.1-buster-slim
+    ports:
+      - 2113:2113
+      - 1113:1113
+    environment:
+      EVENTSTORE_INSECURE: 'true'
+      EVENTSTORE_START_STANDARD_PROJECTIONS: 'true'
+      EVENTSTORE_RUN_PROJECTIONS: All
+      EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP: 'true'
+    volumes:
+      - type: volume
+        source: eventstore-volume-data
+        target: /var/lib/eventstore-data
+      - type: volume
+        source: eventstore-volume-index
+        target: /var/lib/eventstore-index
+      - type: volume
+        source: eventstore-volume-logs
+        target: /var/log/eventstore
+
+volumes:
+  eventstore-volume-data:
+  eventstore-volume-index:
+  eventstore-volume-logs:
